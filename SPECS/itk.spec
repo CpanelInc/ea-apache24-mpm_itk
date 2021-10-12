@@ -7,13 +7,15 @@
 # so, if you update pnumtar, you must update pnum so it can be used in the version we use in this package
 %global pnumtar 04
 %global pnum 4
+%global itk_version %{vnum}.%{pnum}
 
 Summary: Run all httpd process under user's access rights.
 Name: %{ns_name}-mod_%{module_name}
-Version: %{vnum}.%{pnum}
+# This needs to be one var in order for `et` to parse it correctly
+Version: %{itk_version}
 Vendor: cPanel, Inc.
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4564 for more details
-%define release_prefix 3
+%define release_prefix 4
 Release: %{release_prefix}%{?dist}.cpanel
 Group: System Environment/Daemons
 URL: http://mpm-itk.sesse.net/
@@ -39,6 +41,7 @@ Conflicts: %{ns_name}-mod_fcgid
 Conflicts: %{ns_name}-mod_http2
 Provides: %{ns_name}-exec_code_asuser
 Patch0: 0001-min_uid.patch
+Patch1: 0002-Avoid-segfault-when-socket-connection-is-null.patch
 
 %description
 This module allows you to run each virtual host as a separate uid/gid.  It depends on
@@ -52,6 +55,7 @@ environment.
 %setup -q -n mpm-itk-%{vnum}-%{pnumtar}
 %{__cp} %{SOURCE1} .
 %patch0 -p1 -b .minuid
+%patch1 -p1 -b .avoidsegfault
 
 %build
 %{configure} --with-apxs=%{_httpd_apxs} && make
@@ -84,6 +88,9 @@ echo "LoadModule %{module_name}_module modules/%{module_name}.so" > %{buildroot}
 
 
 %changelog
+* Thu Sep 30 2021 Travis Holloway <t.holloway@cpanel.net> - 2.4.7.4-4
+- EA-10143: EA-10143: Patch mpm_itk.c to avoid segfault against apache 2.4.49 and newer
+
 * Wed Nov 15 2017 Cory McIntire <cory@cpanel.net> - 2.4.7.4-3
 - EA-6580: patch mpm_itk.c to allow UID/GID changes for sub processes
 

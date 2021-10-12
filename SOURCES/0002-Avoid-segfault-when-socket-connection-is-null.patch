@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Travis Holloway <t.holloway@cpanel.net>
+Date: Thu, 30 Sep 2021 18:38:28 +0000
+Subject: [PATCH 2/2] Avoid segfault when socket connection is null
+
+---
+ mpm_itk.c | 11 -----------
+ 1 file changed, 11 deletions(-)
+
+diff --git a/mpm_itk.c b/mpm_itk.c
+index e131790..cf24c2a 100644
+--- a/mpm_itk.c
++++ b/mpm_itk.c
+@@ -236,17 +236,6 @@ int itk_fork_process(conn_rec *c)
+ 	    exit(1);
+ 	}
+ 
+-        /*
+-	 * It is important that ap_lingering_close() is called in the child
+-	 * and not here, since some modules (like mod_ssl) needs to know the state
+-	 * from earlier in the connection to be able to finish correctly.
+-	 * However, we close the socket itself here so that we don't keep a
+-	 * reference to it around, and then set the socket pointer to NULL so
+-	 * that when prefork tries to close it, it goes into early exit.
+-	 */
+-	apr_socket_close(ap_get_conn_socket(c));
+-	ap_set_core_module_config(c->conn_config, NULL);
+-
+         /* make sure the MPM does not process this connection */
+ 	return OK;
+     }

@@ -1,14 +1,25 @@
---- a/mpm_itk.c.orig	2017-11-15 12:54:23.214999837 -0600
-+++ b/mpm_itk.c	2017-11-15 12:51:56.602999844 -0600
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Travis Holloway <t.holloway@cpanel.net>
+Date: Thu, 30 Sep 2021 18:22:13 +0000
+Subject: [PATCH 1/2] min_uid
+
+---
+ mpm_itk.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mpm_itk.c b/mpm_itk.c
+index fe2f975..e131790 100644
+--- a/mpm_itk.c
++++ b/mpm_itk.c
 @@ -86,9 +86,9 @@
-
+ 
  /* config globals */
-
+ 
 -static uid_t ap_itk_min_uid=1;
 +static uid_t ap_itk_min_uid=0;
  static uid_t ap_itk_max_uid=UINT_MAX;
 -static gid_t ap_itk_min_gid=1;
 +static gid_t ap_itk_min_gid=0;
  static gid_t ap_itk_max_gid=UINT_MAX;
-
+ 
  #if HAVE_LIBCAP
