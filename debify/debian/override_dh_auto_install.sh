@@ -18,11 +18,11 @@ install -m0755 .libs/$module_name.so $DEB_INSTALL_ROOT$_httpd_moddir/
 mkdir -p $DEB_INSTALL_ROOT$_httpd_modconfdir
 echo "LoadModule ${module_name}_module modules/$module_name.so" > $DEB_INSTALL_ROOT$_httpd_modconfdir/900-$module_name.conf
 
-mkdir -p debian/tmp/usr/share/doc/$full_package_name
+mkdir -p debian/tmp/usr/share/doc/$name
 
-cp CHANGES debian/tmp/usr/share/doc/$full_package_name
-cp LICENSE-2.0.txt debian/tmp/usr/share/doc/$full_package_name
-cp README debian/tmp/usr/share/doc/$full_package_name
+cp CHANGES debian/tmp/usr/share/doc/$name
+cp LICENSE-2.0.txt debian/tmp/usr/share/doc/$name
+cp README debian/tmp/usr/share/doc/$name
 
 echo "FILELIST"
 find . -type f -print | sort
