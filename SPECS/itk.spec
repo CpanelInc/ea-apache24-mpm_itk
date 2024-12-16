@@ -15,7 +15,7 @@ Name: %{ns_name}-mod_%{module_name}
 Version: %{itk_version}
 Vendor: cPanel, Inc.
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4564 for more details
-%define release_prefix 4
+%define release_prefix 5
 Release: %{release_prefix}%{?dist}.cpanel
 Group: System Environment/Daemons
 URL: http://mpm-itk.sesse.net/
@@ -88,6 +88,9 @@ echo "LoadModule %{module_name}_module modules/%{module_name}.so" > %{buildroot}
 
 
 %changelog
+* Mon Dec 16 2024 Dan Muey <daniel.muey@webpros.com> - 2.4.7.4-5
+- ZC-12441: Address deb's versioned-dir situation
+
 * Thu Sep 30 2021 Travis Holloway <t.holloway@cpanel.net> - 2.4.7.4-4
 - EA-10143: EA-10143: Patch mpm_itk.c to avoid segfault against apache 2.4.49 and newer
 
