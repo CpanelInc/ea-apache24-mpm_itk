@@ -15,7 +15,7 @@ Name: %{ns_name}-mod_%{module_name}
 Version: %{itk_version}
 Vendor: cPanel, Inc.
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4564 for more details
-%define release_prefix 5
+%define release_prefix 6
 Release: %{release_prefix}%{?dist}.cpanel
 Group: System Environment/Daemons
 URL: http://mpm-itk.sesse.net/
@@ -36,10 +36,11 @@ BuildRequires: libtool
 Requires: %{ns_name}-mpm = forked
 Requires: %{ns_name}-mmn = %{_httpd_mmn}
 Requires: libcap
-Conflicts: %{ns_name}-mod_ruid2 %{ns_name}-mod_suexec %{ns_name}-mod_suphp %{ns_name}-mod_mpm_event %{ns_name}-mod_mpm_worker
+Conflicts: %{ns_name}-mod_ruid2 %{ns_name}-mod_suexec %{ns_name}-mod_mpm_event %{ns_name}-mod_mpm_worker
 Conflicts: %{ns_name}-mod_fcgid
 Conflicts: %{ns_name}-mod_http2
 Provides: %{ns_name}-exec_code_asuser
+Conflicts: %{ns_name}-exec_code_asuser
 Patch0: 0001-min_uid.patch
 Patch1: 0002-Avoid-segfault-when-socket-connection-is-null.patch
 
@@ -88,6 +89,9 @@ echo "LoadModule %{module_name}_module modules/%{module_name}.so" > %{buildroot}
 
 
 %changelog
+* Mon Aug 11 2025 Julian Brown <julian.brown@webpros.com> - 2.4.7.4-6
+- EA4-99: Adjust exec_code_asuser
+
 * Mon Dec 16 2024 Dan Muey <daniel.muey@webpros.com> - 2.4.7.4-5
 - ZC-12441: Address deb's versioned-dir situation
 
