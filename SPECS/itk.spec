@@ -41,6 +41,7 @@ Conflicts: %{ns_name}-mod_fcgid
 Conflicts: %{ns_name}-mod_http2
 Provides: %{ns_name}-exec_code_asuser
 Conflicts: %{ns_name}-exec_code_asuser
+Conflicts: %{ns_name}-mod_suphp
 Patch0: 0001-min_uid.patch
 Patch1: 0002-Avoid-segfault-when-socket-connection-is-null.patch
 
