@@ -36,7 +36,7 @@ BuildRequires: libtool
 Requires: %{ns_name}-mpm = forked
 Requires: %{ns_name}-mmn = %{_httpd_mmn}
 Requires: libcap
-Conflicts: %{ns_name}-mod_ruid2 %{ns_name}-mod_suexec %{ns_name}-mod_mpm_event %{ns_name}-mod_mpm_worker
+Conflicts: %{ns_name}-mod_mpm_event %{ns_name}-mod_mpm_worker
 Conflicts: %{ns_name}-mod_fcgid
 Conflicts: %{ns_name}-mod_http2
 Provides: %{ns_name}-exec_code_asuser
